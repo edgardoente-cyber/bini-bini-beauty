@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In & Delivery Details - Bini-Bini Beauty Lounge</title>
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+    <!-- Back to Website Link -->
+    <div class="auth-top-bar">
+        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+    <!-- Login & Delivery Container -->
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>Welcome Back, Binibini!</h2>
+            <p>Log in to access your account, track orders, and save your delivery details.</p>
+        </div>
+
+        <!-- Mock Test Accounts Helper Box -->
+        <div class="mock-credentials-box">
+            <h4>🧪 Mock Accounts for Testing:</h4>
+            <p><strong>Email:</strong> test@binibini.com | <strong>Password:</strong> password123</p>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            
+            <!-- Section: Account Info -->
+            <div class="form-section-title">1. Account Credentials</div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="e.g. test@binibini.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <!-- Section: Delivery Address for Orders -->
+            <div class="form-section-title">2. Product Delivery Address</div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="Maria Clarissa" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="0962 639 0230" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Street Address / House No. / Building</label>
+                <input type="text" id="address" placeholder="Block 3, Lot 12, Main Street" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="barangay">Barangay / District</label>
+                    <input type="text" id="barangay" placeholder="Brgy. San Antonio" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">City / Municipality</label>
+                    <input type="text" id="city" placeholder="Los Baños" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Delivery Notes (Optional)</label>
+                <textarea id="notes" rows="2" placeholder="e.g. Landmark: near the yellow gate"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Log In & Save Details</button>
+        </form>
+
+        <!-- Success Message Box (Hidden by default) -->
+        <div id="successBox" class="success-box" style="display: none;">
+            <i class="fas fa-check-circle"></i>
+            <h3>Successfully Logged In!</h3>
+            <p>Your delivery details have been saved securely. Redirecting you back to the lounge...</p>
+        </div>
+    </div>
+
+    <!-- Login Script for Testing -->
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Simple Mock Validation test
+            if (email === "test@binibini.com" && password === "password123") {
+                document.getElementById('loginForm').style.display = 'none';
+                document.querySelector('.mock-credentials-box').style.display = 'none';
+                document.querySelector('.auth-header').style.display = 'none';
+                
+                const successBox = document.getElementById('successBox');
+                successBox.style.display = 'block';
+
+                // Redirect back to main site after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            } else {
+                alert("Incorrect mock credentials! Please use test@binibini.com and password123 for testing.");
+            }
+        }
+    </script>
+</body>
+</html>

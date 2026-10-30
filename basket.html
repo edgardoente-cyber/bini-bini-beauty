@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Basket & QR Checkout - Bini-Bini Beauty Lounge</title>
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+    <!-- Back to Website Link -->
+    <div class="auth-top-bar">
+        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+    <!-- Basket Container -->
+    <div class="auth-container basket-container-box">
+        <div class="auth-header">
+            <h2>Your Shopping Basket</h2>
+            <p>Check product availability, provide your delivery address, and complete your secure payment.</p>
+        </div>
+
+        <form id="checkoutForm" onsubmit="proceedToPayment(event)">
+            
+            <!-- Section 1: Product Selection & Mock Stock Status -->
+            <div class="form-section-title">1. Select Products & Stock Status</div>
+            
+            <!-- Product 1 -->
+            <div class="product-item-row" id="prod1Row">
+                <div class="product-details-check">
+                    <input type="checkbox" id="prod1" name="product" value="Glow Essence Serum" checked onchange="updateTotal()">
+                    <label for="prod1">
+                        <strong>Bini-Bini Glow Essence Serum</strong>
+                        <span class="prod-price">₱650.00</span>
+                    </label>
+                </div>
+                <div class="stock-and-qty">
+                    <span class="stock-badge in-stock" id="stock1Text">In Stock (12 left)</span>
+                    <div class="quantity-box">
+                        <label for="qty1">Qty:</label>
+                        <input type="number" id="qty1" value="1" min="1" max="12" onchange="updateTotal()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 (Mock Sold Out Example or Limited Stock) -->
+            <div class="product-item-row" id="prod2Row">
+                <div class="product-details-check">
+                    <input type="checkbox" id="prod2" name="product" value="Rejuvenating Hair Mask" onchange="updateTotal()">
+                    <label for="prod2">
+                        <strong>Silk & Shine Rejuvenating Hair Mask</strong>
+                        <span class="prod-price">₱480.00</span>
+                    </label>
+                </div>
+                <div class="stock-and-qty">
+                    <span class="stock-badge low-stock" id="stock2Text">Low Stock (3 left)</span>
+                    <div class="quantity-box">
+                        <label for="qty2">Qty:</label>
+                        <input type="number" id="qty2" value="1" min="1" max="3" onchange="updateTotal()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Price Display -->
+            <div class="cart-total-box">
+                <span>Total Amount:</span>
+                <span id="totalAmount">₱650.00</span>
+            </div>
+
+
+            <!-- Section 2: Delivery Address -->
+            <div class="form-section-title">2. Delivery Address</div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="Maria Clarissa" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="0962 639 0230" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Street Address / House No.</label>
+                <input type="text" id="address" placeholder="Block 3, Lot 12, Main Street" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="barangay">Barangay</label>
+                    <input type="text" id="barangay" placeholder="Brgy. San Antonio" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">City / Municipality</label>
+                    <input type="text" id="city" placeholder="Los Baños" required>
+                </div>
+            </div>
+
+
+            <!-- Section 3: Payment Option Scheme -->
+            <div class="form-section-title">3. Payment Option</div>
+            
+            <div class="payment-options-grid">
+                <label class="payment-card">
+                    <input type="radio" name="paymentMethod" value="GCash QR" checked onclick="togglePaymentMode('qr')">
+                    <div class="payment-card-content">
+                        <i class="fas fa-qrcode"></i>
+                        <span>GCash QR Code</span>
+                    </div>
+                </label>
+                <label class="payment-card">
+                    <input type="radio" name="paymentMethod" value="COD" onclick="togglePaymentMode('cod')">
+                    <div class="payment-card-content">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Cash on Delivery</span>
+                    </div>
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn" style="margin-top: 25px;">Proceed to Payment</button>
+        </form>
+
+        <!-- Section 4: QR Code & Reference Confirmation Screen (Hidden initially) -->
+        <div id="qrPaymentSection" class="qr-payment-box" style="display: none;">
+            <div class="auth-header" style="margin-bottom: 15px;">
+                <h2>Scan QR Code to Pay</h2>
+                <p>Scan the QR code below using your GCash app, then enter your payment reference number to confirm your order.</p>
+            </div>
+
+            <!-- Mock QR Code Display Box -->
+            <div class="qr-code-display">
+                <div class="qr-mock-box">
+                    <i class="fas fa-qrcode"></i>
+                    <span>[ BINI-BINI OFFICIAL GCASH QR ]</span>
+                    <small>Scan via GCash App</small>
+                </div>
+                <div class="qr-amount-due">
+                    Amount to Pay: <strong id="qrDisplayTotal">₱650.00</strong>
+                </div>
+            </div>
+
+            <!-- Reference Number Form -->
+            <form onsubmit="confirmOrderWithReference(event)">
+                <div class="form-group" style="text-align: left;">
+                    <label for="refNumber"><strong>GCash Reference Number (13 Digits)</strong></label>
+                    <input type="text" id="refNumber" placeholder="e.g. 1092837465920" required minlength="10">
+                    <small style="color: #7a6156; font-size: 11px;">Enter the reference number from your successful GCash SMS/receipt.</small>
+                </div>
+
+                <div class="qr-action-buttons">
+                    <button type="button" class="submit-btn btn-secondary-back" onclick="backToCart()">Back to Cart</button>
+                    <button type="submit" class="submit-btn">Confirm Payment & Order</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success Confirmation State -->
+        <div id="orderSuccessBox" class="success-box" style="display: none;">
+            <i class="fas fa-check-circle"></i>
+            <h3>Order Successfully Placed!</h3>
+            <p>Payment reference verified. Thank you for shopping with Bini-Bini Beauty Lounge! Your order is now being processed for delivery.</p>
+            <a href="index.html" class="submit-btn" style="display: inline-block; text-decoration: none; margin-top: 20px; width: auto; padding: 10px 25px;">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Script Handling Stock, Totals, and QR Reference Verification -->
+    <script>
+        let selectedPaymentMode = 'qr';
+
+        function updateTotal() {
+            let total = 0;
+            
+            const prod1Checked = document.getElementById('prod1').checked;
+            const qty1 = parseInt(document.getElementById('qty1').value) || 0;
+            if (prod1Checked) total += 650 * qty1;
+
+            const prod2Checked = document.getElementById('prod2').checked;
+            const qty2 = parseInt(document.getElementById('qty2').value) || 0;
+            if (prod2Checked) total += 480 * qty2;
+
+            document.getElementById('totalAmount').innerText = '₱' + total.toLocaleString() + '.00';
+            document.getElementById('qrDisplayTotal').innerText = '₱' + total.toLocaleString() + '.00';
+        }
+
+        function togglePaymentMode(mode) {
+            selectedPaymentMode = mode;
+        }
+
+        function proceedToPayment(event) {
+            event.preventDefault();
+
+            const prod1Checked = document.getElementById('prod1').checked;
+            const prod2Checked = document.getElementById('prod2').checked;
+
+            if (!prod1Checked && !prod2Checked) {
+                alert("Please select at least one product to order!");
+                return;
+            }
+
+            document.getElementById('checkoutForm').style.display = 'none';
+
+            if (selectedPaymentMode === 'qr') {
+                // Show QR code and Reference number confirmation screen
+                document.getElementById('qrPaymentSection').style.display = 'block';
+            } else {
+                // If COD selected, skip QR and go straight to success
+                document.querySelector('.auth-header').style.display = 'none';
+                document.getElementById('orderSuccessBox').style.display = 'block';
+            }
+        }
+
+        function backToCart() {
+            document.getElementById('qrPaymentSection').style.display = 'none';
+            document.getElementById('checkoutForm').style.display = 'block';
+        }
+
+        function confirmOrderWithReference(event) {
+            event.preventDefault();
+            const refNumber = document.getElementById('refNumber').value;
+
+            if (refNumber.length < 8) {
+                alert("Please enter a valid reference number.");
+                return;
+            }
+
+            document.getElementById('qrPaymentSection').style.display = 'none';
+            document.querySelector('.auth-header').style.display = 'none';
+            document.getElementById('orderSuccessBox').style.display = 'block';
+        }
+
+        // Run on load
+        updateTotal();
+    </script>
+</body>
+</html>
