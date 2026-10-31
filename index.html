@@ -47,7 +47,17 @@
             <a href="login.html" class="nav-login-btn">Log In</a>
         </div>
     </div>
+<button onclick="logout()" class="btn-secondary" style="cursor: pointer;">Log Out</button>
 
+<script>
+    function logout() {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userContact");
+        alert("You have been logged out successfully.");
+        window.location.href = "login.html";
+    }
+</script>
 </nav>
 
 
@@ -69,9 +79,9 @@
 
     <!-- Single Facebook Sidebar on the Right -->
     <div class="hero-social-sidebar">
-        <a href="https://facebook.com" target="_blank" class="vertical-social-btn facebook" title="Facebook">f</a>
-    </div>
-
+     <a href="https://www.facebook.com/profile.php?id=61583916377340" target="_blank" class="social-icon">
+    <i class="fab fa-facebook-f"></i>
+</a>
 </section>
 
    
@@ -748,7 +758,17 @@
             <p>📍 National Road, Molino III, Bacoor, Cavite, Philippines</p>
             <p>📞 Contact: Available via Facebook Page</p>
             <p>🕒 Open Daily: 9:00 AM - 7:00 PM</p>
+        <!-- Footer Facebook Icon -->
+        <div class="footer-social" style="margin-top: 15px;">
+            <a href="https://www.facebook.com/profile.php?id=61583916377340" target="_blank" title="Visit Bini-Bini Facebook Page" style="display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; background-color: #1877f2; color: #fff; border-radius: 50%; text-decoration: none;">
+                <i class="fab fa-facebook-f" style="font-size: 20px;"></i>
+            </a>
         </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Bini-Bini Beauty Lounge. All Rights Reserved.</p>
+            <p class="privacy-notice">Data Privacy Notice: We value your privacy...</p>
+        </div></div>
         <div class="footer-bottom">
             <p>&copy; 2026 Bini-Bini Beauty Lounge. All Rights Reserved.</p>
             <p class="privacy-notice">Data Privacy Notice: We value your personal information and ensure it is kept secure and confidential in compliance with data privacy standards.</p>

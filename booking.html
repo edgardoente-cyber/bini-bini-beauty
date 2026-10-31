@@ -1,0 +1,7 @@
+<script>
+    // Check if user is logged in
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        alert("Please log in or sign up first to book an appointment.");
+        window.location.href = "login.html";
+    }
+</script>

@@ -223,18 +223,15 @@
             event.preventDefault();
             const refNumber = document.getElementById('refNumber').value;
 
-            if (refNumber.length < 8) {
-                alert("Please enter a valid reference number.");
-                return;
-            }
+    // Check if the client is logged in before allowing access to the basket
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        alert("Please log in or sign up first to order products.");
+        window.location.href = "login.html";
+    }
+</script>
+ 
 
-            document.getElementById('qrPaymentSection').style.display = 'none';
-            document.querySelector('.auth-header').style.display = 'none';
-            document.getElementById('orderSuccessBox').style.display = 'block';
-        }
-
-        // Run on load
-        updateTotal();
+   
     </script>
 </body>
 </html>

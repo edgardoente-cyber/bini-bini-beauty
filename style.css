@@ -2339,38 +2339,47 @@ section:nth-of-type(even) {
     position: relative;
 }
 
-/* --- FLOATING STICKY FACEBOOK SIDEBAR --- */
-.hero-social-sidebar {
-    position: fixed !important; /* Locks it to the browser window so it never moves when scrolling */
-    right: 25px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 15px !important;
-    z-index: 9999 !important; /* Keeps it floating safely on top of all other content */
+/* If your Facebook icon uses FontAwesome (e.g., <i class="fab fa-facebook-f"></i>) */
+.social-icon i, 
+.social-icon .fa-facebook-f {
+    font-size: 28px; /* Change this number to make it bigger or smaller (e.g., 24px, 32px, etc.) */
 }
 
-.vertical-social-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
+/* If the background circle or button holding the icon needs to be bigger too */
+.social-icon {
+    width: 50px;  /* Increase width */
+    height: 50px; /* Increase height */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}/* Floating Facebook Social Icon */
+.floating-fb-container {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+}
+
+.floating-fb-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
+    width: 55px;
+    height: 55px;
+    background-color: #1877f2; /* Official Facebook Blue */
+    color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     text-decoration: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.vertical-social-btn:hover {
+.floating-fb-btn i {
+    font-size: 28px; /* Makes the icon nice and big */
+}
+
+.floating-fb-btn:hover {
     transform: scale(1.1);
-    opacity: 0.9;
-}
-
-.vertical-social-btn.facebook {
-    background: #3b5998;
+    background-color: #165fe5;
 }
